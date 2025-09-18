@@ -1,0 +1,8 @@
+# Ignore Python cache files
+__pycache__/
+
+# Ignore other common Python-related files
+*.pyc
+*.pyo
+*.pyd
+venv/
