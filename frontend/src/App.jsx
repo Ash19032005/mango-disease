@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 
-const API_URL = 'http://127.0.0.1:8000'; // Match your backend URL
+const API_URL = 'https://mango-disease-g0xz.onrender.com/'; // Match your backend URL
 
 function App() {
   const [selectedFile, setSelectedFile] = useState(null);
