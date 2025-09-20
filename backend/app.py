@@ -64,36 +64,39 @@ def home():
 
 @app.post("/predict")
 async def predict_disease(model_name: str, file: UploadFile = File(...)):
-    if model_name not in MODELS:
-        raise HTTPException(status_code=404, detail="Model not found")
+    return {"predictions": {"Healthy": 0.5, "Anthracnose": 0.5}}
+# @app.post("/predict")
+# async def predict_disease(model_name: str, file: UploadFile = File(...)):
+#     if model_name not in MODELS:
+#         raise HTTPException(status_code=404, detail="Model not found")
 
-    try:
-        # Read and preprocess image
-        image_bytes = await file.read()
-        image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+#     try:
+#         # Read and preprocess image
+#         image_bytes = await file.read()
+#         image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
 
-        # Load the chosen model
-        model_filename = MODELS[model_name]
-        model = load_model_from_hf(model_filename)
+#         # Load the chosen model
+#         model_filename = MODELS[model_name]
+#         model = load_model_from_hf(model_filename)
 
-        # Get model input shape
-        model_input_shape = model.input_shape
-        target_size = (model_input_shape[1], model_input_shape[2])
+#         # Get model input shape
+#         model_input_shape = model.input_shape
+#         target_size = (model_input_shape[1], model_input_shape[2])
 
-        # Preprocess and predict
-        preprocessed_image = preprocess_image(image, target_size=target_size)
-        prediction = model.predict(preprocessed_image)[0]
+#         # Preprocess and predict
+#         preprocessed_image = preprocess_image(image, target_size=target_size)
+#         prediction = model.predict(preprocessed_image)[0]
 
-        healthy_prob = float(prediction[0])
-        anthracnose_prob = 1.0 - healthy_prob  # simple 2-class assumption
+#         healthy_prob = float(prediction[0])
+#         anthracnose_prob = 1.0 - healthy_prob  # simple 2-class assumption
 
-        results = {LABELS[0]: healthy_prob, LABELS[1]: anthracnose_prob}
-        return {"predictions": results}
+#         results = {LABELS[0]: healthy_prob, LABELS[1]: anthracnose_prob}
+#         return {"predictions": results}
 
-    except Exception as e:
-        import traceback
-        traceback.print_exc()
-        raise HTTPException(status_code=500, detail=f"Prediction failed: {e}")
+#     except Exception as e:
+#         import traceback
+#         traceback.print_exc()
+#         raise HTTPException(status_code=500, detail=f"Prediction failed: {e}")
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
