@@ -39,7 +39,7 @@ function App() {
     formData.append('file', selectedFile);
     
     try {
-      const response = await axios.post(`${API_URL}predict?model_name=${modelName}`, formData, {
+      const response = await axios.post(`${API_URL}/predict?model_name=${modelName}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
