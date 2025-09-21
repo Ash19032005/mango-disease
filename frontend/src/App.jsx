@@ -59,11 +59,12 @@ function App() {
 
   const formatPredictions = () => {
     if (!predictions) return null;
-    return Object.entries(predictions).map(([label, confidence]) => (
-      <li key={label}>
-        <strong>{label}:</strong> { (confidence * 100).toFixed(2) }%
-      </li>
-    ));
+    if((predictions['Anthracnose']*100).toFixed(2)>(predictions['Healthy']*100).toFixed(2)){
+        return <strong>Anthracnose</strong>
+    }
+    else{
+      return <strong>Healthy</strong>
+    }
   };
 
   return (

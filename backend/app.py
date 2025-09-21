@@ -56,7 +56,7 @@ def preprocess_image(image: Image.Image, target_size=(224, 224)):
         img_array = np.stack((img_array,) * 3, axis=-1)
 
     # Normalize if model expects float input (0-1)
-    img_array = img_array / 255.0
+    img_array = img_array / 255.0 
     img_array = np.expand_dims(img_array, axis=0)  # add batch dimension
     return img_array
 
