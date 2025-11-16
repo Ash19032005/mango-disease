@@ -26,7 +26,6 @@ MODEL_PATHS = {
     "model2": "models/mango-disease-vgg16_quantized.tflite",
     "model3":"models/mango-disease-mobileVnet_quantized.tflite",
     "model4":"models/mango-disease-InceptionV3_quantized.tflite",
-    "model5":"models/mango-disease-CNN.tflite",
 }
 
 interpreters = {}
