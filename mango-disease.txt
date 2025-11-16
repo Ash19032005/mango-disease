@@ -1,0 +1,52 @@
+Image Acquisition:
+For this research, high-resolution images of mango fruits were collected to develop a binary classification dataset for detecting Anthracnose disease. The dataset consisted of two categories: Anthracnose-infected mango fruits and healthy mango fruits. Images of infected mangoes displayed typical symptoms of Anthracnose, including dark, sunken lesions and fungal spots on the peel surface, whereas healthy fruits appeared uniform in color without visible defects. The images were captured under natural lighting conditions using mobile and digital cameras at various angles and distances to ensure visual diversity. In addition, some images were obtained from publicly available datasets and verified manually to ensure correct labeling. This approach resulted in a diverse and representative dataset that reflects real-world variations in mango fruit appearance.
+
+Dataset Creation:
+After collecting the images, they were organized into two main directories labeled Anthracnose and Healthy. Each folder contained the respective class images in standard .jpg format. To automate dataset setup, Python code was used to create directories and extract the compressed ZIP files stored in Google Drive. Once extracted, all images were arranged in a directory structure compatible with TensorFlow’s ImageDataGenerator, which allows automatic labeling based on folder names. This structure ensured efficient data loading and easy distinction between the two classes during the model training process.
+
+
+Data Augmentation:
+To enhance the generalization of the model and prevent overfitting, data augmentation techniques were applied to the training images. Data augmentation artificially increases the size and variability of the dataset by generating modified versions of existing images. In this study, random transformations such as rotation up to 20 degrees, horizontal flipping, zooming, and width and height shifting by up to 20 percent were used. Additional transformations like shearing were also applied to simulate realistic image variations. These augmentations helped the model become more robust to positional, lighting, and orientation differences that naturally occur in real-world images of mango fruits.
+
+
+Data Preprocessing:
+Before training the deep learning model, all images were preprocessed to ensure consistency in input dimensions and pixel scaling. Each image was resized to 224 × 224 pixels, matching the required input size for the selected convolutional neural network architecture. The pixel values were normalized by dividing by 255, converting them to a range between 0 and 1 to improve model convergence during training. The dataset was then split into training and validation subsets using an 80:20 ratio, enabling proper performance evaluation. The flow_from_directory() method in TensorFlow’s ImageDataGenerator was used to generate image batches dynamically, streamlining preprocessing and augmentation during the training phase.
+
+
+
+Model Training
+
+In this study, five deep learning architectures were explored to identify the most effective model for classifying mango fruits as either Anthracnose-infected or healthy. These models include ResNet-50, InceptionV3, MobileNet, VGGNet-16, and a custom Convolutional Neural Network (CNN). All models were trained using the prepared dataset of mango fruit images after augmentation and preprocessing. The training process involved resizing all images to 224×224 pixels and normalizing their pixel values. The models were trained using the binary cross-entropy loss function and the Adam optimizer, with performance evaluated through accuracy and validation loss metrics.
+
+
+ResNet-50:
+The Residual Network (ResNet) was introduced by Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun in 2015, developed at Microsoft Research. ResNet-50 is a 50-layer deep architecture that introduced the concept of residual learning, using skip connections to overcome the vanishing gradient problem that occurs in very deep networks. This structure allows the model to train effectively even with a large number of layers, leading to improved accuracy in image classification tasks. Due to its strong feature extraction capabilities, ResNet-50 was utilized to detect fine texture differences between healthy and diseased mango fruits.
+
+
+InceptionV3:
+InceptionV3 was developed by Christian Szegedy and his team at Google in 2015 as part of the GoogLeNet family. The model utilizes Inception modules, which perform multiple convolution operations with different filter sizes in parallel and concatenate the outputs. This approach captures features at various spatial scales efficiently while maintaining computational feasibility. InceptionV3 is known for its balance between accuracy and efficiency, making it suitable for detecting subtle disease features in high-resolution mango fruit images.
+
+MobileNet:
+MobileNet was introduced by Andrew G. Howard and colleagues at Google in 2017, designed specifically for lightweight and efficient deep learning on mobile and embedded devices. It employs depthwise separable convolutions, which drastically reduce the number of parameters and computational cost without significant accuracy loss. In this study, MobileNet was chosen for its fast inference and suitability for real-time mango disease detection on resource-limited platforms such as smartphones and IoT devices.
+
+VGGNet-16:
+VGGNet, developed by Karen Simonyan and Andrew Zisserman from the University of Oxford’s Visual Geometry Group in 2014, is one of the most widely used CNN architectures. VGG16 consists of 16 layers with small 3×3 convolution filters and uniform architecture throughout the network. Although computationally heavy, VGG16 is known for its simplicity and strong performance in image classification tasks. In this research, VGG16 was used to evaluate how a deep yet straightforward convolutional architecture performs in distinguishing diseased and healthy mango fruits.
+
+
+Convolutional Neural Network (CNN):
+In addition to pre-trained models, a custom CNN was developed and trained from scratch. The CNN architecture consisted of multiple convolutional and pooling layers followed by fully connected layers and a sigmoid output for binary classification. The convolutional layers automatically learned spatial hierarchies of features such as color, shape, and texture patterns associated with Anthracnose infection. This baseline model served as a performance benchmark for comparing with the transfer learning models.
+
+
+Performance Evaluation Metrics
+
+The performance of the trained models was evaluated using several standard metrics to ensure accurate assessment of their classification capabilities. Since this research involves binary classification—distinguishing between Anthracnose-infected and healthy mango fruits—metrics such as accuracy, precision, recall, F1-score, and confusion matrix were employed. These metrics collectively provide a comprehensive understanding of the model’s predictive performance.
+
+Accuracy measures the overall correctness of the model by calculating the ratio of correctly predicted instances to the total number of samples. Although accuracy provides a general overview, it may not always reflect model reliability if the dataset is imbalanced. Therefore, additional metrics were used for a more detailed evaluation.
+
+Precision represents the proportion of correctly predicted positive cases (Anthracnose) among all instances classified as positive. A high precision value indicates that the model makes fewer false positive predictions, which is important when minimizing misclassification of healthy fruits as diseased.
+
+Recall, also known as sensitivity or true positive rate, measures the model’s ability to correctly identify actual Anthracnose-infected samples. A higher recall value implies that the model successfully detects most diseased fruits, which is crucial for effective disease identification and control in agricultural applications.
+
+The F1-score is the harmonic mean of precision and recall, providing a balanced measure of both metrics. It is particularly useful when there is a trade-off between precision and recall or when the dataset has unequal class distributions. A higher F1-score indicates that the model maintains strong performance in both correctly identifying and minimizing false detections.
+
+Finally, the confusion matrix was used to visualize the classification results in terms of true positives, true negatives, false positives, and false negatives. This matrix provides detailed insight into how the model performs on each class and helps identify specific areas where the classifier may need improvement. Together, these evaluation metrics enabled a thorough and objective comparison of all five models to determine the most accurate and reliable architecture for mango fruit disease detection.

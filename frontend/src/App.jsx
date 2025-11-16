@@ -59,23 +59,22 @@ function App() {
 
   const formatPredictions = () => {
     if (!predictions) return null;
-    if((predictions['Anthracnose']*100).toFixed(2)>(predictions['Healthy']*100).toFixed(2)){
+    if((predictions['Anthracnose'] > predictions['Healthy'])){
         return <strong>Anthracnose</strong>
     }
     else{
       return <strong>Healthy</strong>
     }
   };
-
   return (
     <div className="App">
-      <h1>Mango Disease Detector</h1>
+      <h1>TNAU Mango Anthracnose Diagnosis e-portal</h1>
       <p>Upload an image of a mango and select a model to predict the disease.</p>
 
       <div className="controls">
         <div className="file-upload">
           <label>
-            Upload Image:
+            Upload Mango fruit Image:
             <input type="file" onChange={handleFileChange} accept="image/*" />
           </label>
         </div>
@@ -108,7 +107,7 @@ function App() {
           ) : (
             <div className="upload-placeholder">
               <img src="/images/upload-placeholder.png" alt="Upload an image" />
-              <p>Upload a mango leaf image to get started!</p>
+              <p>Upload a mango fruit image to get started!</p>
             </div>
           )}
         </div>

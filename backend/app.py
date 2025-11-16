@@ -25,7 +25,8 @@ MODEL_PATHS = {
     "model1": "models/mango-disease-resnet_quantized.tflite",
     "model2": "models/mango-disease-vgg16_quantized.tflite",
     "model3":"models/mango-disease-mobileVnet_quantized.tflite",
-    "model4":"models/mango-disease-InceptionV3_quantized.tflite"
+    "model4":"models/mango-disease-InceptionV3_quantized.tflite",
+    "model5":"models/mango-disease-CNN.tflite",
 }
 
 interpreters = {}
@@ -75,9 +76,10 @@ def predict_tflite(image: Image.Image, model_name: str):
     interpreter.set_tensor(input_index, img)
     interpreter.invoke()
     output_data = interpreter.get_tensor(output_index)[0]
-
+    print(output_data)
     # Handle single-output (sigmoid) or two-output (softmax)
     if len(output_data) == 1:
+        print(output_data)
         anthracnose_prob = float(output_data[0])
         healthy_prob = 1.0 - anthracnose_prob
         predictions = {
@@ -85,6 +87,7 @@ def predict_tflite(image: Image.Image, model_name: str):
             "Healthy":  anthracnose_prob
         }
     elif len(output_data) == 2:
+        print(output_data)
         predictions = {
             "Anthracnose": float(output_data[1]),
             "Healthy": float(output_data[0])
@@ -106,4 +109,4 @@ async def predict(file: UploadFile = File(...), model_name: str = Query("model1"
         predictions = predict_tflite(image, model_name)
         return {"predictions": predictions}
     except Exception as e:
-        return {"error": str(e)}
+        return {"error": str(e)} 
