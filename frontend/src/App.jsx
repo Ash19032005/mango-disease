@@ -60,7 +60,11 @@ function App() {
   const formatPredictions = () => {
     if (!predictions) return null;
     if((predictions['Anthracnose'] > predictions['Healthy'])){
-        return <strong>Anthracnose</strong>
+        return <strong>Anthracnose 
+         <p>Measures to be taken:
+            <br></br>
+           For managing anthracnose disease in mango spraying Propiconazole13.9% + Difenoconazole 13.9% EC at 0.1% concentration  is recommended in field condition</p>
+        </strong>
     }
     else{
       return <strong>Healthy</strong>
@@ -83,10 +87,10 @@ function App() {
           <label>
             Select Model:
             <select value={modelName} onChange={(e) => setModelName(e.target.value)}>
-              <option value="model1">Resnet-50</option>
+              
               <option value="model2">VGG-16</option>
               <option value="model3">MobileVnet</option>
-              <option value="model4">InceptionV3</option>
+              
             </select>
           </label>
         </div>
